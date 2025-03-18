@@ -30,9 +30,9 @@ Saat ini, **plaNest** sedang dalam tahap pengembangan dan mencakup fitur-fitur b
 
 Logo aplikasi dapat ditemukan dalam direktori proyek pada path berikut:
 
-```
-![Alt text](images/Group 17.svg)
-```
+
+![Alt text](images/Logo.svg)
+
 
 ## Status Proyek
 
