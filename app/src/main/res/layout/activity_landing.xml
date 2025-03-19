@@ -67,6 +67,7 @@
             android:paddingHorizontal="10dp"
             android:paddingVertical="10dp"
             android:text="Get Started"
+            app:layout_constraintStart_toStartOf="parent"
             app:layout_constraintTop_toBottomOf="@+id/tv_subtitle" />
     </androidx.constraintlayout.widget.ConstraintLayout>
 
