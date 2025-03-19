@@ -7,13 +7,14 @@ public class Notes {
     private String notes;
     private String last_modified;
     private String password;
+    private String user_id;
 
-    public Notes(String title, String notes, String last_modified, String password) {
-
-        Title = title;
+    public Notes(String title, String notes, String last_modified, String password, String user_id) {
+        this.Title = title;
         this.notes = notes;
         this.last_modified = last_modified;
         this.password = password;
+        this.user_id = user_id;
     }
 
     public String getNotes_id() {

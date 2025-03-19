@@ -46,7 +46,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30sp"
                 android:text="Your first plan is waiting to be written"
-                android:textSize="32sp"
+                android:textSize="32dp"
                 android:textStyle="bold"/>
 
             <TextView
@@ -54,7 +54,7 @@
                 android:layout_height="wrap_content"
                 android:layout_marginTop="10dp"
                 android:text="Start by writing down your ideas, or whatever comes to your mind. Make your first note now!"
-                android:textSize="15sp"/>
+                android:textSize="15dp"/>
 
             <com.google.android.material.button.MaterialButton
                 android:id="@+id/btnCreateNote"
@@ -100,9 +100,10 @@
                     android:layout_marginLeft="10dp"/>
 
                 <TextView
+                    android:id="@+id/tvCount"
                     android:layout_width="wrap_content"
                     android:layout_height="wrap_content"
-                    android:text="12"
+                    android:text="0"
                     android:layout_gravity="center_vertical"
                     android:background="@drawable/bg_circled"
                     android:paddingHorizontal="10dp"
@@ -126,7 +127,7 @@
         android:layout_marginRight="40dp"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
-        android:visibility="visible"
+        android:visibility="gone"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
         android:backgroundTint="@color/yellow"

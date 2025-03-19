@@ -36,7 +36,7 @@ public class NotesActivity extends AppCompatActivity {
         binding.btnSync.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                Notes notes = new Notes(binding.etHeader.getText().toString(), binding.etContent.getText().toString(), "test", "");
+                Notes notes = new Notes(binding.etHeader.getText().toString(), binding.etContent.getText().toString(), "test", "", "");
                 database.getReference().child("notes").push().setValue(notes).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
                     public void onSuccess(Void unused) {
