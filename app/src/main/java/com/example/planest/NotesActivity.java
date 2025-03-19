@@ -1,6 +1,7 @@
 package com.example.planest;
 
 import android.os.Bundle;
+import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
@@ -21,14 +22,14 @@ public class NotesActivity extends AppCompatActivity {
 
     private ActivityNotesBinding binding;
 
-    FirebaseDatabase database = FirebaseDatabase.getInstance();
+    FirebaseDatabase database = FirebaseDatabase.getInstance("https://planest-b8a65-default-rtdb.asia-southeast1.firebasedatabase.app/");
 
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
         binding = ActivityNotesBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
-
+        setContentView(view);
         initUI();
     }
     private void initUI(){
@@ -44,9 +45,17 @@ public class NotesActivity extends AppCompatActivity {
                 }).addOnFailureListener(new OnFailureListener() {
                     @Override
                     public void onFailure(@NonNull Exception e) {
-                        Toast.makeText(NotesActivity.this, "Failed to Sync", Toast.LENGTH_SHORT).show();
+                        Log.e("FirebaseError", "Failed to Sync", e);
+                        Toast.makeText(NotesActivity.this, "Failed to Sync: " + e.getMessage(), Toast.LENGTH_SHORT).show();
                     }
                 });
+            }
+        });
+
+        binding.btnBackNotes.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+
             }
         });
     }

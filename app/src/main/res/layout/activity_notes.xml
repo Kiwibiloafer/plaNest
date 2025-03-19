@@ -35,6 +35,7 @@
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
                 android:text="Sync to Cloud"
+                android:clickable="true"
                 android:background="@drawable/bg_circled"
                 android:textColor="@color/white"
                 android:paddingHorizontal="10dp"
