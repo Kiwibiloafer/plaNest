@@ -28,15 +28,16 @@
                 android:src="@drawable/ic_arrowcircleback"
                 />
 
-            <TextView
+            <Button
                 android:id="@+id/btnSync"
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_alignParentEnd="true"
                 android:layout_alignParentTop="true"
+                android:focusable="true"
                 android:text="Sync to Cloud"
                 android:clickable="true"
-                android:background="@drawable/bg_circled"
+                android:backgroundTint="@color/blue"
                 android:textColor="@color/white"
                 android:paddingHorizontal="10dp"
                 android:paddingVertical="10dp"/>
@@ -46,13 +47,19 @@
         <EditText
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:hint="Header"
+            android:hint="Title"
+            android:textSize="20dp"
             android:id="@+id/etHeader"
+            android:paddingBottom="20dp"
             android:layout_marginTop="20dp"/>
         <EditText
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:hint="Content"
+            android:textSize="15dp"
+            android:gravity="top|left"
+            android:background="@android:color/transparent"
+            android:paddingStart="5dp"
             android:id="@+id/etContent"/>
 
     </LinearLayout>

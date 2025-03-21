@@ -9,6 +9,11 @@ public class Notes {
     private String password;
     private String user_id;
 
+    // Konstruktor default yang diperlukan oleh Firebase
+    public Notes() {
+    }
+
+    // Konstruktor dengan parameter
     public Notes(String title, String notes, String last_modified, String password, String user_id) {
         this.Title = title;
         this.notes = notes;
@@ -55,5 +60,13 @@ public class Notes {
 
     public void setPassword(String password) {
         this.password = password;
+    }
+
+    public String getUser_id() {
+        return user_id;
+    }
+
+    public void setUser_id(String user_id) {
+        this.user_id = user_id;
     }
 }

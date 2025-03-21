@@ -36,7 +36,7 @@ public class HomeActivity extends AppCompatActivity {
         binding = ActivityHomeBinding.inflate(getLayoutInflater());
         View view = binding.getRoot();
         setContentView(view);
-
+        setContentView(view);
         initUI();
 
 
@@ -49,6 +49,8 @@ public class HomeActivity extends AppCompatActivity {
     }
 
     private void initUI(){
+
+
 
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
@@ -71,6 +73,7 @@ public class HomeActivity extends AppCompatActivity {
                 startActivity(i);
             }
         });
+
         refreshData();
     }
 
@@ -93,7 +96,7 @@ public class HomeActivity extends AppCompatActivity {
                     binding.llFill.setVisibility(View.VISIBLE);
                     binding.fabNotes.setVisibility(View.VISIBLE);
 
-                    binding.tvCount.setText(notes.size());
+                    binding.tvCount.setText(String.valueOf(notes.size()));
 
                     NotesAdapter notesAdapter = new NotesAdapter(notes, HomeActivity.this);
                     binding.rvNotes.setAdapter(notesAdapter);

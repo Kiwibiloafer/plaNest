@@ -11,41 +11,42 @@
     app:cardUseCompatPadding="true">
 
     <LinearLayout
+        android:id="@+id/llCard"
         android:layout_width="match_parent"
-        android:layout_height="wrap_content"
-        android:padding="15dp"
-        android:orientation="vertical">
+        android:layout_height="150dp"
+        android:orientation="vertical"
+        android:padding="15dp">
 
         <TextView
             android:id="@+id/tvHeader"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"
-            android:textStyle="bold"
-            android:text="Header"/>
+            android:text="Header"
+            android:textStyle="bold" />
 
         <TextView
             android:id="@+id/tvSubtitle"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"
-            android:textStyle="bold"
-            android:text="SubTitle"/>
+            android:text="SubTitle"
+            android:textStyle="bold" />
 
         <View
             android:layout_width="match_parent"
             android:layout_height="2dp"
             android:layout_marginVertical="5dp"
             android:background="@color/Grey"
-            android:paddingVertical="10dp"/>
+            android:paddingVertical="10dp" />
 
         <TextView
             android:id="@+id/tvTime"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
             android:maxLines="1"
-            android:textStyle="bold"
-            android:text="Time"/>
+            android:text="Time"
+            android:textStyle="bold" />
     </LinearLayout>
 
 </androidx.cardview.widget.CardView>
