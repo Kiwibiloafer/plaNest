@@ -50,8 +50,6 @@ public class HomeActivity extends AppCompatActivity {
 
     private void initUI(){
 
-
-
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if(firebaseUser!= null){
@@ -84,6 +82,7 @@ public class HomeActivity extends AppCompatActivity {
             public void onDataChange(@NonNull DataSnapshot snapshot) {
                 for(DataSnapshot snapshot1: snapshot.getChildren()){
                     Notes note = snapshot1.getValue(Notes.class);
+                    note.setNotes_id(snapshot1.getKey());
                     notes.add(note);
                 }
 

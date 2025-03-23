@@ -32,6 +32,8 @@ public class LoginActivity extends AppCompatActivity {
 
     private GoogleSignInClient googleSignInClient;
 
+
+
     @Override
     protected void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
@@ -58,6 +60,43 @@ public class LoginActivity extends AppCompatActivity {
                 startActivityForResult(intent, 100);
             }
         });
+        binding.btnLogin.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                LoginEmailPassword();
+            }
+        });
+        binding.btnRegist.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View v) {
+                Intent i = new Intent(LoginActivity.this, RegistActivity.class);
+                startActivity(i);
+
+            }
+        });
+    }
+
+    private void LoginEmailPassword(){
+        String Email = binding.etEmail.getText().toString().trim();
+        String Password = binding.etPassword.getText().toString().trim();
+
+        if (Email.isEmpty() || Password.isEmpty()) {
+            displayToast("Email and password cannot be empty");
+            return;
+        }
+
+        firebaseAuth.signInWithEmailAndPassword(Email, Password)
+                .addOnCompleteListener(this, new OnCompleteListener<AuthResult>() {
+                    @Override
+                    public void onComplete(@NonNull Task<AuthResult> task) {
+                        if (task.isSuccessful()) {
+                            startActivity(new Intent(LoginActivity.this, HomeActivity.class).setFlags(Intent.FLAG_ACTIVITY_NEW_TASK));
+                            displayToast("Login Success");
+                        } else {
+                            displayToast("Login failed: " + task.getException().getMessage());
+                        }
+                    }
+                });
     }
 
     @Override

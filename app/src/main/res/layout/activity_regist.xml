@@ -2,10 +2,9 @@
 <androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:app="http://schemas.android.com/apk/res-auto"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/main"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".LoginActivity"
+    tools:context=".RegistActivity"
     android:background="@color/white">
     <LinearLayout
         android:layout_width="match_parent"
@@ -25,10 +24,10 @@
             android:id="@+id/tv_welcome"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:text="Welcome Back"
-            android:textSize="30sp"
+            android:text="Start your planning Journey"
+            android:textSize="40sp"
             android:textStyle="bold"
-            android:layout_marginTop="100dp"/>
+            android:layout_marginTop="40dp"/>
 
         <TextView
             android:id="@+id/tv_subwelcome"
@@ -39,50 +38,37 @@
             android:layout_marginTop="5dp"/>
 
         <EditText
-            android:id="@+id/etEmail"
+            android:id="@+id/etEmailRegis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_marginTop="70dp"
             android:hint="Email"
-            android:textSize="14sp"/>
+            android:textSize="14sp"
+            />
 
         <EditText
-            android:id="@+id/etPassword"
+            android:id="@+id/etPasswordRegis"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:hint="Password"
             android:textSize="14sp"
-            android:inputType="textPassword"/>
-
-        <Button
-            android:id="@+id/btnLogin"
+            android:inputType="textPassword"
+            android:layout_marginTop="5dp"/>
+        <EditText
+            android:id="@+id/etPasswordRegisConfirm"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
-            android:backgroundTint="@color/blue"
-            android:layout_marginTop="50dp"
-            android:text="Login"/>
-
+            android:hint="Confirm Password"
+            android:textSize="14sp"
+            android:inputType="textPassword"
+            android:layout_marginTop="5dp"/>
         <Button
-            android:id="@+id/btnRegist"
+            android:id="@+id/btnRegistAcc"
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:backgroundTint="@color/yellow"
-
-            android:text="Register"/>
-
-
-        <View
-            android:layout_width="match_parent"
-            android:layout_height="2dp"
-            android:layout_marginVertical="10dp"
-            android:background="@color/Grey"/>
-
-        <com.google.android.gms.common.SignInButton
-            android:id="@+id/btnSignin"
-            android:layout_width="159dp"
-            android:layout_height="62dp"
-            android:layout_gravity="center"/>
-
+            android:text="Register"
+            android:layout_marginTop="30dp"/>
     </LinearLayout>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

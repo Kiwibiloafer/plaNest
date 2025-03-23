@@ -1,5 +1,6 @@
 package com.example.planest;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -34,9 +35,10 @@ public class NotesActivity extends AppCompatActivity {
 
     private FirebaseAuth firebaseAuth;
 
-    private static final long DEBOUNCE_DELAY = 300;
+    private static final long DEBOUNCE_DELAY = 400;
 
     String UID;
+    String notes_id ="";
 
     private Runnable searchRunnable;
     private Handler handler = new Handler();
@@ -48,24 +50,44 @@ public class NotesActivity extends AppCompatActivity {
         View view = binding.getRoot();
         setContentView(view);
         initUI();
+        initListener();
     }
     private void initUI(){
 
+
+        //GET DATA
         String title = getIntent().getStringExtra("title");
         binding.etHeader.setText(title);
 
         String content = getIntent().getStringExtra("content");
         binding.etContent.setText(content);
 
+        if(getIntent().getStringExtra("id") == null){
+            notes_id = "";
+        }else{
+            notes_id = getIntent().getStringExtra("id");
+        }
+
+
+        //FIREBASE
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
-        if(firebaseUser!= null){
+        if(firebaseUser!= null) {
             UID = firebaseUser.getUid();
         }
+
+
+    }
+
+    public void initListener(){
+
+        binding.btnBackNotes.setOnClickListener(v -> onBackPressed());
+
 
         binding.btnSync.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
+                //create data baru
                 Notes notes = new Notes(binding.etHeader.getText().toString(), binding.etContent.getText().toString(), getCurrentDate(), "", UID);
                 database.getReference().child("notes").push().setValue(notes).addOnSuccessListener(new OnSuccessListener<Void>() {
                     @Override
@@ -82,13 +104,7 @@ public class NotesActivity extends AppCompatActivity {
             }
         });
 
-        binding.btnBackNotes.setOnClickListener(new View.OnClickListener() {
-            @Override
-            public void onClick(View v) {
-
-            }
-        });
-
+        //TEXT WATCHER
         binding.etContent.addTextChangedListener(new TextWatcher() {
             @Override
             public void beforeTextChanged(CharSequence s, int start, int count, int after) {
@@ -107,7 +123,51 @@ public class NotesActivity extends AppCompatActivity {
                 String query = s.toString().trim();
 
                 searchRunnable = () -> {
-                    Log.wtf("Debounce content", s.toString());
+                    if(!query.isEmpty()){
+                        if(notes_id.equals("")){
+                            //create
+                            createData();
+
+                        }else{
+                            //update
+                            updateData();
+                        }
+                    }
+
+                };
+                handler.postDelayed(searchRunnable, DEBOUNCE_DELAY);
+            }
+        });
+
+        //TEXT WATCHER
+        binding.etHeader.addTextChangedListener(new TextWatcher() {
+            @Override
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
+
+            }
+
+            @Override
+            public void onTextChanged(CharSequence s, int start, int before, int count) {
+                if(searchRunnable != null){
+                    handler.removeCallbacks(searchRunnable);
+                }
+            }
+
+            @Override
+            public void afterTextChanged(Editable s) {
+                String query = s.toString().trim();
+
+                searchRunnable = () -> {
+                    if(!query.isEmpty()){
+                        if(notes_id.equals("")){
+                            //create
+                            createData();
+
+                        }else{
+                            //update
+                            updateData();
+                        }
+                    }
 
                 };
                 handler.postDelayed(searchRunnable, DEBOUNCE_DELAY);
@@ -115,6 +175,30 @@ public class NotesActivity extends AppCompatActivity {
         });
 
     }
+
+    private void createData(){
+
+        Notes notes = new Notes(binding.etHeader.getText().toString(), binding.etContent.getText().toString(), getCurrentDate(), "", UID);
+        database.getReference().child("notes").push().setValue(notes).addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(NotesActivity.this, "Save Success", Toast.LENGTH_SHORT).show();
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e("FirebaseError", "Failed to Sync", e);
+                Toast.makeText(NotesActivity.this, "Failed to Sync: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
+
+    private void updateData(){
+        Notes notes = new Notes(binding.etHeader.getText().toString(), binding.etContent.getText().toString(), getCurrentDate(), "", UID);
+        database.getReference().child("notes").child(notes_id).setValue(notes);
+
+    }
+
 
     public String getCurrentDate(){
         Calendar calendar = Calendar.getInstance();
