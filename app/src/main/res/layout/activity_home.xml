@@ -18,14 +18,39 @@
         app:layout_constraintTop_toTopOf="parent"
         android:orientation="vertical">
 
-        <ImageView
-            android:id="@+id/iv_logotext"
-            android:layout_width="89dp"
-            android:layout_height="46dp"
-            android:src="@drawable/ic_logotext"
-            app:layout_constraintStart_toStartOf="parent"
-            app:layout_constraintTop_toTopOf="parent"
-            android:layout_marginBottom="30dp"/>
+        <androidx.constraintlayout.widget.ConstraintLayout
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content">
+
+            <ImageView
+                android:id="@+id/iv_logotext"
+                android:layout_width="89dp"
+                android:layout_height="46dp"
+                android:src="@drawable/ic_logotext"
+                app:layout_constraintBottom_toBottomOf="parent"
+                app:layout_constraintStart_toStartOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+
+            <ImageView
+                android:id="@+id/btnOption"
+                android:layout_width="24dp"
+                android:layout_height="24dp"
+                android:src="@drawable/ic_option"
+                app:layout_constraintBottom_toBottomOf="parent"
+                android:clickable="true"
+                app:layout_constraintEnd_toEndOf="parent"
+                app:layout_constraintTop_toTopOf="parent" />
+        </androidx.constraintlayout.widget.ConstraintLayout>
+
+        <EditText
+            android:id="@+id/etSearchBar"
+            android:drawablePadding="15dp"
+            android:hint="Search Notes"
+            android:padding="10dp"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:background="@drawable/rounded_edittext"
+            android:drawableStart="@drawable/ic_search"/>
 
         <LinearLayout
             android:id="@+id/llEmpty"
@@ -38,14 +63,14 @@
                 android:layout_width="240dp"
                 android:layout_height="244dp"
                 android:layout_gravity="center"
-                android:layout_marginTop="40dp"
+                android:layout_marginTop="50dp"
                 android:src="@drawable/ic_empty"/>
 
             <TextView
                 android:layout_width="wrap_content"
                 android:layout_height="wrap_content"
                 android:layout_marginTop="30sp"
-                android:text="Your first plan is waiting to be written"
+                android:text="Your plan is waiting to be written"
                 android:textSize="32dp"
                 android:textStyle="bold"/>
 
@@ -75,15 +100,6 @@
             android:layout_width="match_parent"
             android:layout_height="match_parent"
             android:orientation="vertical">
-
-            <EditText
-                android:drawablePadding="15dp"
-                android:hint="Search Notes"
-                android:padding="10dp"
-                android:layout_width="match_parent"
-                android:layout_height="wrap_content"
-                android:background="@drawable/rounded_edittext"
-                android:drawableStart="@drawable/ic_search"/>
 
             <LinearLayout
                 android:layout_marginTop="10dp"

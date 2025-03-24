@@ -1,6 +1,5 @@
 package com.example.planest;
 
-import android.content.Intent;
 import android.os.Bundle;
 import android.os.Handler;
 import android.text.Editable;
@@ -9,12 +8,8 @@ import android.util.Log;
 import android.view.View;
 import android.widget.Toast;
 
-import androidx.activity.EdgeToEdge;
 import androidx.annotation.NonNull;
 import androidx.appcompat.app.AppCompatActivity;
-import androidx.core.graphics.Insets;
-import androidx.core.view.ViewCompat;
-import androidx.core.view.WindowInsetsCompat;
 
 import com.example.planest.Model.Notes;
 import com.example.planest.databinding.ActivityNotesBinding;
@@ -54,7 +49,6 @@ public class NotesActivity extends AppCompatActivity {
     }
     private void initUI(){
 
-
         //GET DATA
         String title = getIntent().getStringExtra("title");
         binding.etHeader.setText(title);
@@ -68,48 +62,29 @@ public class NotesActivity extends AppCompatActivity {
             notes_id = getIntent().getStringExtra("id");
         }
 
-
         //FIREBASE
         firebaseAuth = FirebaseAuth.getInstance();
         FirebaseUser firebaseUser = firebaseAuth.getCurrentUser();
         if(firebaseUser!= null) {
             UID = firebaseUser.getUid();
         }
-
-
     }
 
     public void initListener(){
 
         binding.btnBackNotes.setOnClickListener(v -> onBackPressed());
 
-
         binding.btnSync.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View v) {
-                //create data baru
-                Notes notes = new Notes(binding.etHeader.getText().toString(), binding.etContent.getText().toString(), getCurrentDate(), "", UID);
-                database.getReference().child("notes").push().setValue(notes).addOnSuccessListener(new OnSuccessListener<Void>() {
-                    @Override
-                    public void onSuccess(Void unused) {
-                        Toast.makeText(NotesActivity.this, "Success", Toast.LENGTH_SHORT).show();
-                    }
-                }).addOnFailureListener(new OnFailureListener() {
-                    @Override
-                    public void onFailure(@NonNull Exception e) {
-                        Log.e("FirebaseError", "Failed to Sync", e);
-                        Toast.makeText(NotesActivity.this, "Failed to Sync: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-                    }
-                });
+                CreateOrUpdate();
             }
         });
 
         //TEXT WATCHER
         binding.etContent.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -123,28 +98,15 @@ public class NotesActivity extends AppCompatActivity {
                 String query = s.toString().trim();
 
                 searchRunnable = () -> {
-                    if(!query.isEmpty()){
-                        if(notes_id.equals("")){
-                            //create
-                            createData();
-
-                        }else{
-                            //update
-                            updateData();
-                        }
-                    }
-
+                    CreateOrUpdate();
                 };
                 handler.postDelayed(searchRunnable, DEBOUNCE_DELAY);
             }
         });
 
-        //TEXT WATCHER
         binding.etHeader.addTextChangedListener(new TextWatcher() {
             @Override
-            public void beforeTextChanged(CharSequence s, int start, int count, int after) {
-
-            }
+            public void beforeTextChanged(CharSequence s, int start, int count, int after) {}
 
             @Override
             public void onTextChanged(CharSequence s, int start, int before, int count) {
@@ -158,51 +120,74 @@ public class NotesActivity extends AppCompatActivity {
                 String query = s.toString().trim();
 
                 searchRunnable = () -> {
-                    if(!query.isEmpty()){
-                        if(notes_id.equals("")){
-                            //create
-                            createData();
-
-                        }else{
-                            //update
-                            updateData();
-                        }
-                    }
-
+                    CreateOrUpdate();
                 };
                 handler.postDelayed(searchRunnable, DEBOUNCE_DELAY);
             }
         });
+    }
 
+    private void CreateOrUpdate(){
+        String header = binding.etHeader.getText().toString().trim();
+        String content = binding.etContent.getText().toString().trim();
+
+        if (header.isEmpty() && content.isEmpty()) {
+            if (!notes_id.isEmpty()) {
+                deleteData();
+            }
+        } else if (notes_id.isEmpty()) {
+            createData();
+        } else {
+            updateData();
+        }
     }
 
     private void createData(){
-
-        Notes notes = new Notes(binding.etHeader.getText().toString(), binding.etContent.getText().toString(), getCurrentDate(), "", UID);
-        database.getReference().child("notes").push().setValue(notes).addOnSuccessListener(new OnSuccessListener<Void>() {
-            @Override
-            public void onSuccess(Void unused) {
-                Toast.makeText(NotesActivity.this, "Save Success", Toast.LENGTH_SHORT).show();
-            }
-        }).addOnFailureListener(new OnFailureListener() {
-            @Override
-            public void onFailure(@NonNull Exception e) {
-                Log.e("FirebaseError", "Failed to Sync", e);
-                Toast.makeText(NotesActivity.this, "Failed to Sync: " + e.getMessage(), Toast.LENGTH_SHORT).show();
-            }
-        });
+        String key = database.getReference().child("notes").push().getKey(); // Dapatkan ID unik
+        if (key != null) {
+            notes_id = key; // Simpan ID untuk update selanjutnya
+            Notes notes = new Notes(binding.etHeader.getText().toString(), binding.etContent.getText().toString(), getCurrentDate(), "", UID);
+            database.getReference().child("notes").child(notes_id).setValue(notes).addOnSuccessListener(new OnSuccessListener<Void>() {
+                @Override
+                public void onSuccess(Void unused) {
+                    Toast.makeText(NotesActivity.this, "Save Success", Toast.LENGTH_SHORT).show();
+                }
+            }).addOnFailureListener(new OnFailureListener() {
+                @Override
+                public void onFailure(@NonNull Exception e) {
+                    Log.e("FirebaseError", "Failed to Sync", e);
+                    Toast.makeText(NotesActivity.this, "Failed to Sync: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+                }
+            });
+        }
     }
 
     private void updateData(){
         Notes notes = new Notes(binding.etHeader.getText().toString(), binding.etContent.getText().toString(), getCurrentDate(), "", UID);
         database.getReference().child("notes").child(notes_id).setValue(notes);
-
     }
 
+    private void deleteData(){
+        database.getReference().child("notes").child(notes_id).removeValue().addOnSuccessListener(new OnSuccessListener<Void>() {
+            @Override
+            public void onSuccess(Void unused) {
+                Toast.makeText(NotesActivity.this, "Note Deleted", Toast.LENGTH_SHORT).show();
+                notes_id = "";
+                binding.etHeader.setText("");
+                binding.etContent.setText("");
+            }
+        }).addOnFailureListener(new OnFailureListener() {
+            @Override
+            public void onFailure(@NonNull Exception e) {
+                Log.e("FirebaseError", "Failed to Delete", e);
+                Toast.makeText(NotesActivity.this, "Failed to Delete: " + e.getMessage(), Toast.LENGTH_SHORT).show();
+            }
+        });
+    }
 
     public String getCurrentDate(){
         Calendar calendar = Calendar.getInstance();
-        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-DD HH:mm:ss");
+        SimpleDateFormat simpleDateFormat = new SimpleDateFormat("YYYY-MM-dd HH:mm:ss");
         return simpleDateFormat.format(calendar.getTime());
     }
 }

@@ -19,12 +19,10 @@ Saat ini, **plaNest** sedang dalam tahap pengembangan dan mencakup fitur-fitur b
 - **ActivityNotes** – Halaman utama untuk mengelola catatan
 - **Model Notes** – Struktur data untuk menyimpan catatan
 - **Sinkronisasi dengan Cloud** – Menyimpan dan memuat catatan dari Firebase Realtime Database
+- **Fungsi pencarian dalam Realtime Database** – Memudahkan pengguna mencari catatan berdasarkan kata kunci
 
 ### Fitur yang belum dikerjakan:
-
-- **Room Local Database** – Menyimpan catatan secara lokal di perangkat
-- **Fungsi pencarian dalam Realtime Database** – Memudahkan pengguna mencari catatan berdasarkan kata kunci
-- **Perbaikan bug dan optimalisasi aplikasi**
+- **Perbaikan bug, flow, dan optimalisasi aplikasi**
 
 ## Logo
 
@@ -35,18 +33,17 @@ Saat ini, **plaNest** sedang dalam tahap pengembangan dan mencakup fitur-fitur b
 
 ## Status Proyek
 
-🚧 **Dalam pengerjaan**
+🚧 **Finishing project**
 
 ## Teknologi yang Digunakan
 
 - **Android Studio** sebagai IDE pengembangan aplikasi
 - **Java** sebagai bahasa pemrograman utama
 - **Firebase Realtime Database** untuk penyimpanan dan sinkronisasi data
-- **Room Database** (dalam rencana) untuk penyimpanan lokal
 
 ## Pengembang
 
-**Author: Kelompok 2 **
+**Author: Kelompok 2**
 
 - Alif Jamaludin
 - Nindita Ramya
