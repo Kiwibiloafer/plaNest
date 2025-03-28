@@ -1,47 +1,47 @@
 {
   "project_info": {
-    "project_number": "167720649129",
-    "project_id": "planest-b8a65",
-    "storage_bucket": "planest-b8a65.firebasestorage.app"
+    "project_number": "",
+    "project_id": "",
+    "storage_bucket": ""
   },
   "client": [
     {
       "client_info": {
-        "mobilesdk_app_id": "1:167720649129:android:ed9ceb22ac8ef2a10ec4b8",
+        "mobilesdk_app_id": "",
         "android_client_info": {
-          "package_name": "com.example.planest"
+          "package_name": ""
         }
       },
       "oauth_client": [
         {
-          "client_id": "167720649129-4k7761d2utrh50abo7v0e0u4a4l369i5.apps.googleusercontent.com",
+          "client_id": "",
           "client_type": 1,
           "android_info": {
-            "package_name": "com.example.planest",
-            "certificate_hash": "6d7ccbf56174fc555b2010dd026c2ed71049e698"
+            "package_name": "",
+            "certificate_hash": ""
           }
         },
         {
-          "client_id": "167720649129-8m1j9kkrj61s0pv730gdihbtveos9bo4.apps.googleusercontent.com",
-          "client_type": 3
+          "client_id": "",
+          "client_type": 
         }
       ],
       "api_key": [
         {
-          "current_key": "AIzaSyCmuVk6eg1RnHskz59I5b7UXXoPQG2mQFU"
+          "current_key": ""
         }
       ],
       "services": {
         "appinvite_service": {
           "other_platform_oauth_client": [
             {
-              "client_id": "167720649129-8m1j9kkrj61s0pv730gdihbtveos9bo4.apps.googleusercontent.com",
-              "client_type": 3
+              "client_id": "",
+              "client_type": 
             }
           ]
         }
       }
     }
   ],
-  "configuration_version": "1"
+  "configuration_version": ""
 }
